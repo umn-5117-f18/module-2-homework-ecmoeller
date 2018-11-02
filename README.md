@@ -1,5 +1,3 @@
-# module-2-homework-template
-
 # CSCI 5117 Fall 2018 -- Module 2 Homework
 
 Instructions:
