@@ -12,3 +12,8 @@ First Last, x500@umn.edu
 ## Link to Site
 
 <https://TODO.firebaseapp.com/>
+
+## Challenge Task
+
+* I started the challenge task: [yes/no]
+* I completed the challenge task: [yes/no]
