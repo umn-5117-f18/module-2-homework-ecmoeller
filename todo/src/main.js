@@ -13,10 +13,16 @@ Vue.use(VueFire);
 Vue.config.productionTip = false;
 
 export const db = firebase.firestore();
-console.log("Here is db" + db);
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+let app;
 
+//Wrap app creation in onAuthStateChanged or page reloads dont work
+firebase.auth().onAuthStateChanged(user => {
+  if (!app) {
+    app = new Vue({
+        el: '#app',
+        router,
+        render: h => h(App)
+    })
+  }
+})
