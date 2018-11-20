@@ -3,9 +3,8 @@ import Router from 'vue-router'
 import firebase from 'firebase'
 
 import Home from './views/Home.vue'
-import Hello from './views/Hello.vue'
-import Login from './views/Login.vue'
-import SignUp from './views/SignUp.vue'
+import Todos from './views/Todos.vue'
+import Done from './views/Done.vue'
 
 
 Vue.use(Router)
@@ -18,22 +17,20 @@ let router = new Router({
       component: Home,
     },
     {
-      path: '/hello',
-      name: 'hello',
-      component: Hello,
+      path: '/todos',
+      name: 'todos',
+      component: Todos,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: SignUp
+      path: '/done',
+      name: 'done',
+      component: Done,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '*',      //Catch all not defined routes
@@ -49,7 +46,7 @@ router.beforeEach(function(to, from, next) {
   if (requiresAuth && !currentUser) {
     next('/login')
   } else if (!requiresAuth && currentUser) {
-    next('/hello')
+    next('/todos')
   } else {
     next()  //Must always reach this case eventually or you get a stack overflow
   }

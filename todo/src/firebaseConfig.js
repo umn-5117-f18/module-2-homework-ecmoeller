@@ -11,4 +11,8 @@ var config = {
     storageBucket: "todo-aa404.appspot.com",
     messagingSenderId: "148072616028"
   };
-  firebase.initializeApp(config);
+
+const provider = new firebase.auth.GoogleAuthProvider()
+firebase.initializeApp(config);
+
+export {provider};
