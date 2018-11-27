@@ -1,31 +1,17 @@
 <template>
   <div class="card">
-    <label class="container"> 
-      <router-link :to="{ name: 'todoSum', params: { id: idx }}">
-        {{msg}} {{idx}}
-      </router-link>
-      
-      <input v-on:click="addDone(msg)" type="checkbox">
-      <span class="checkmark"></span>
+    <label class="container"> {{msg}}
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
     </label>
   </div>
 </template>
 
 <script>
-import { db } from '../main.js'
 export default {
-  name: 'Todo',
+  name: 'TodoDone',
   props: {
-    msg: String,
-    idx: Number
-  },
-  methods: {
-    addDone: function(name){
-      //delete from todos and add to done
-      console.log("In adding done");
-      db.collection('todos').where('name', '==', name).delete();
-      db.collection('done').add({name});
-    }
+    msg: String
   }
 }
 </script>
@@ -37,7 +23,7 @@ export default {
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
- 
+  cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;

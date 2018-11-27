@@ -5,16 +5,26 @@ import firebase from 'firebase'
 import Home from './views/Home.vue'
 import Todos from './views/Todos.vue'
 import Done from './views/Done.vue'
-
+import Four from './views/404.vue'
+import TodoSum from './views/TodoSum.vue'
 
 Vue.use(Router)
 
 let router = new Router({
+  mode:'history',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/404',
+      name: 'four',
+      component: Four,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/todos',
@@ -33,8 +43,16 @@ let router = new Router({
       }
     },
     {
+      path: '/todo/:id',
+      name: 'todoSum',
+      component: TodoSum,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '*',      //Catch all not defined routes
-      redirect: '/'
+      redirect: '/404'
     }
   ]
 })

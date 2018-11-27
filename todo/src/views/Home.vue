@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    This is Emily's Todo app
+    Emily's Todo app
     <button v-on:click='googleSignIn'>Sign in with Google</button>
   </div>
 </template>
