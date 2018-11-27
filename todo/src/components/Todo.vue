@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <label class="container"> 
-      <router-link :to="{ name: 'todoSum', params: { id: idx }}">
+      <router-link :to="{ name: 'todoSum', params: { id: idx, title: msg }}">
         {{msg}} {{idx}}
       </router-link>
       

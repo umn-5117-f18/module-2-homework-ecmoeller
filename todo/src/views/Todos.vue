@@ -1,7 +1,6 @@
 <template>
   <div class="todos">
     
-
     <button v-on:click="logout">Sign Out</button>
     <br>
     <br>

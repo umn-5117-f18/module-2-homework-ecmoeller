@@ -22,7 +22,9 @@ firebase.auth().onAuthStateChanged(user => {
     app = new Vue({
         el: '#app',
         router,
-        render: h => h(App)
+        render: h => h(App),
+        isHidden: false
+
     })
   }
 })
