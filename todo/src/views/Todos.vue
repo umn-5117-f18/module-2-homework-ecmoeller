@@ -2,15 +2,25 @@
   <div class="todos">
     
     <button v-on:click="logout">Sign Out</button>
-    <br>
-    <br>
+    <br> <br>
     <button v-on:click="goToDone"> See completed todos</button>
-    <br>
-    <br>
-    <button v-on:click="addCategory"> Add category</button>
+    <br>  <br>
+    <input v-model="catName" placeholder="Category" type="text">
+    <button v-on:click="addCategory(catName)"> Add category</button>
+    <br> <br>
 
     <input v-model="name" placeholder="Todo" type="text">
     <button v-on:click="addTodo(name)">Add todo</button>
+
+    <h2> These are the categories</h2>
+    <article v-for="(cat, idx) in categories" :key="idx">
+      
+
+      <router-link :to="{ name: 'todoCat', params: { idx: idx, id: cat.id, category: cat.name }}">
+        {{cat.name}} {{idx}}
+      </router-link>
+
+    </article>
 
     <h2> These are the todos</h2>
     <article v-for="(todo, idx) in todos" :key="idx">
@@ -32,13 +42,16 @@ export default {
   data () {
     return {
       todos: [],
+      categories: [],
       name: '',
+      catName: '',
       idx: 0
     }
   },
   firestore () {
     return {
-      todos: db.collection('todos').orderBy('createdAt')
+      todos: db.collection('todos').orderBy('createdAt'),
+      categories: db.collection('categories')
     }
   },
   methods: {
@@ -55,9 +68,8 @@ export default {
     goToDone: function(){
       this.$router.replace('/done')
     },
-    addCategory: function(){
-
-
+    addCategory: function(catName){
+      db.collection('categories').add({catName});
     }
   }
 }

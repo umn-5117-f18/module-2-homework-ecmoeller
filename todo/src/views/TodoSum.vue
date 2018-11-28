@@ -41,25 +41,26 @@ export default {
   methods: {
     logout: function() {
       firebase.auth().signOut().then(()=> {
-      this.$router.replace('/')
+        this.$router.replace('/')
       })
     },
     showEdit: function(){
         this.isHidden = true;
-        console.log("One");
         
     },
     editTodo: function(id, newTodo){
-        db.collection('todos').doc(id).update({name: newTodo});
-        console.log("four");
+        const createdAt = new Date()
+        db.collection('todos').doc(id).update({name: newTodo, createdAt: createdAt});
+        console.log("editing");
         this.isHidden = false;
         this.todo = newTodo;
     },
     addDone: function(name, id){
       //delete from todos and add to done
       console.log("Here is id: " + id);
+      const createdAt = new Date()
       db.collection('todos').doc(id).delete();
-      db.collection('done').add({name});
+      db.collection('done').add({name, createdAt});
       this.$router.replace('/done')
     },
   }
@@ -68,4 +69,8 @@ export default {
 </script>
 
 <style>
+h2 {
+    width: 1000px;
+    word-wrap: break-word;
+}
 </style>

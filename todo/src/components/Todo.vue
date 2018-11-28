@@ -33,6 +33,9 @@ export default {
 <style>
 /* Customize the label (the container) */
 .container {
+  
+  white-space:nowrap;
+  overflow:hidden;
   /* display: block;
   position: relative;
   padding-left: 35px;
