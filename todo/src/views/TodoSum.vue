@@ -5,7 +5,7 @@
     <br>
     <br>
 
-    <h2 v-if="!isHidden"> {{todo}} {{$route.params.idx}} </h2>
+    <h2 v-if="!isHidden"> {{todo}} </h2>
     <button v-if="!isHidden" v-on:click="addDone(todo, $route.params.id)">Done </button>
     <br> 
     <br>

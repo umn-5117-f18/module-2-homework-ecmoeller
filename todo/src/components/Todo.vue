@@ -3,7 +3,7 @@
     <label class="container" onclick="return false;"> 
       <button v-on:click="addDone(msg, id)">Done </button>
       <router-link :to="{ name: 'todoSum', params: { idx: idx, id: id, title: msg }}">
-        {{msg}} {{idx}}
+        {{msg}} 
       </router-link> 
     </label>
   </div>

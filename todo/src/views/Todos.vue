@@ -15,9 +15,9 @@
     <h2> These are the categories</h2>
     <article v-for="(cat, i) in categories" :key="i">
       
-      <button v-on:click="deleteCategory(cat.id)">Delete </button>
+      <button v-on:click="deleteCategory(cat.id, cat.name)">Delete </button>
       <router-link :to="{ name: 'todoCat', params: { idx: i, id: cat.id, category: cat.name }}">
-        {{cat.name}} {{i}}
+        {{cat.name}} 
       </router-link>
 
     </article>
@@ -64,7 +64,6 @@ export default {
     addTodo: function(name){
       const createdAt = new Date()
       db.collection('todos').add({name, createdAt});
-      //db.collection('todos').doc("one").set({foo:'bar'});
     },
     goToDone: function(){
       this.$router.replace('/done')
@@ -72,11 +71,16 @@ export default {
     addCategory: function(name){
       db.collection('categories').add({name});
     },
-    deleteCategory: function(id){
-      console.log("Deleting a category" + id);
+    deleteCategory: function(id, category){
+      console.log("Deleting a category" + category);
       db.collection('categories').doc(id).delete();
 
       //have to delete cateogory in the todos category field
+      // db.collection('todos').where("category", "==", category).update({
+      //   category: firebase.firestore.FieldValue.delete()
+      // });
+
+      db.collection('todos').doc(id).update({category: ''});
 
     }
   }

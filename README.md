@@ -7,7 +7,7 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Student (to be completed individually)
 
-First Last, x500@umn.edu
+Emily Moeller, moell162@umn.edu
 
 ## Link to Site
 
@@ -15,5 +15,5 @@ First Last, x500@umn.edu
 
 ## Challenge Task
 
-* I started the challenge task: [yes/no]
-* I completed the challenge task: [yes/no]
+* I started the challenge task: Yes
+* I completed the challenge task: No
