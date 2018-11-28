@@ -1,18 +1,19 @@
 <template>
   <div class="todoSum">
 
-    <h2 v-if="!isHidden"> {{$route.params.title}} {{$route.params.id}} </h2>
+    <button v-on:click="logout">Sign Out</button>
+    <br>
+    <br>
+
+    <h2 v-if="!isHidden"> {{todo}} {{$route.params.idx}} </h2>
+    <button v-if="!isHidden" v-on:click="addDone(todo, $route.params.id)">Done </button>
+    <br> 
+    <br>
     <button v-if="!isHidden" v-on:click="showEdit()">Edit Todo</button>
 
 
-    <!-- <form @submit="editTodo($route.params.id, newTodo)" v-if="isHidden">
-      <input v-model="newTodo" placeholder="todo" type="text">
-      <button type="submit" >Submit</button>
-    </form> -->
-    
-
     <div v-if="isHidden">
-      <input v-model="newTodo" placeholder="todo" type="text">
+      <input v-model="newTodo" :placeholder="todo" type="text">
       <button v-on:click="editTodo($route.params.id, newTodo)">Submit</button>
     </div>
     
@@ -20,36 +21,47 @@
 </template>
 
 <script>
+import firebase from 'firebase';
 import { db } from '../main.js'
 export default {
   name: 'Todo',
   props: {
       title: String,
-      id: Number
+      id: String,
+      idx: String
     
   },
   data () {
     return {
-        isHidden: false
+        isHidden: false,
+        newTodo: '',
+        todo: this.$route.params.title
     };
   },
   methods: {
-    showEdit: function(){
-        console.log("In edit");
-        if( !this.isHidden){
-            this.isHidden = true;
-        }else{
-            this.isHidden = false;
-        }
+    logout: function() {
+      firebase.auth().signOut().then(()=> {
+      this.$router.replace('/')
+      })
     },
-    editTodo: function(idx, newTodo){
-        console.log("In edit");
-        if( !this.isHidden){
-            this.isHidden = true;
-        }else{
-            this.isHidden = false;
-        }
-    } 
+    showEdit: function(){
+        this.isHidden = true;
+        console.log("One");
+        
+    },
+    editTodo: function(id, newTodo){
+        db.collection('todos').doc(id).update({name: newTodo});
+        console.log("four");
+        this.isHidden = false;
+        this.todo = newTodo;
+    },
+    addDone: function(name, id){
+      //delete from todos and add to done
+      console.log("Here is id: " + id);
+      db.collection('todos').doc(id).delete();
+      db.collection('done').add({name});
+      this.$router.replace('/done')
+    },
   }
 }
 

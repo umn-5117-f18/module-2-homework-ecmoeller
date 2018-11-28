@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     Emily's Todo app
+    <br>
     <button v-on:click='googleSignIn'>Sign in with Google</button>
   </div>
 </template>

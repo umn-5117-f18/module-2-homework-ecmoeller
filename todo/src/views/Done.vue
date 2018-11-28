@@ -4,8 +4,6 @@
     <button v-on:click="logout">Sign Out</button>
     <br>
     <br>
-    <button v-on:click="goToTodos"> See todos</button>
-    <br>
 
     <h2> All the completed todos</h2>
     <article v-for="(todo, idx) in todosdone" :key="idx">
@@ -31,7 +29,7 @@ export default {
   },
   firestore () {
     return {
-      todosdone: db.collection('done')
+      todosdone: db.collection('done').orderBy('createdAt')
     }
   },
   methods: {
@@ -41,7 +39,8 @@ export default {
       })
     },
     addTodo: function(name){
-      db.collection('todos').add({name})
+      const createdAt = new Date()
+      db.collection('todos').add({name, createdAt})
     },
     goToTodos: function(){
       this.$router.replace('/todos')

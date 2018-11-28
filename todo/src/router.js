@@ -7,6 +7,8 @@ import Todos from './views/Todos.vue'
 import Done from './views/Done.vue'
 import Four from './views/404.vue'
 import TodoSum from './views/TodoSum.vue'
+import TodoCat from './views/TodoCat.vue'
+import DoneCat from './views/DoneCat.vue'
 
 Vue.use(Router)
 
@@ -43,9 +45,25 @@ let router = new Router({
       }
     },
     {
-      path: '/todo/:id',
+      path: '/todo/:idx',
       name: 'todoSum',
       component: TodoSum,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/todos/:category',
+      name: 'todoCat',
+      component: TodoCat,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/done/:category',
+      name: 'doneCat',
+      component: DoneCat,
       meta: {
         requiresAuth: true
       }

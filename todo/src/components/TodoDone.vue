@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <label class="container"> {{msg}}
-        <input type="checkbox" checked="checked">
+        <input type="checkbox" checked="checked" onclick="return false;">
         <span class="checkmark"></span>
     </label>
   </div>
@@ -23,7 +23,7 @@ export default {
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
-  cursor: pointer;
+  cursor: pointer; /*pointer */
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
