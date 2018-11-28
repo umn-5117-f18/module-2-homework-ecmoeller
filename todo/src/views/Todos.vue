@@ -13,11 +13,11 @@
     <button v-on:click="addTodo(name)">Add todo</button>
 
     <h2> These are the categories</h2>
-    <article v-for="(cat, idx) in categories" :key="idx">
+    <article v-for="(cat, i) in categories" :key="i">
       
-
-      <router-link :to="{ name: 'todoCat', params: { idx: idx, id: cat.id, category: cat.name }}">
-        {{cat.name}} {{idx}}
+      <button v-on:click="deleteCategory(cat.id)">Delete </button>
+      <router-link :to="{ name: 'todoCat', params: { idx: i, id: cat.id, category: cat.name }}">
+        {{cat.name}} {{i}}
       </router-link>
 
     </article>
@@ -45,7 +45,8 @@ export default {
       categories: [],
       name: '',
       catName: '',
-      idx: 0
+      idx: 0,
+      i: 0
     }
   },
   firestore () {
@@ -68,8 +69,15 @@ export default {
     goToDone: function(){
       this.$router.replace('/done')
     },
-    addCategory: function(catName){
-      db.collection('categories').add({catName});
+    addCategory: function(name){
+      db.collection('categories').add({name});
+    },
+    deleteCategory: function(id){
+      console.log("Deleting a category" + id);
+      db.collection('categories').doc(id).delete();
+
+      //have to delete cateogory in the todos category field
+
     }
   }
 }
