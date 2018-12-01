@@ -6,15 +6,23 @@
     <br>
 
     <h2 v-if="!isHidden"> {{todo}} </h2>
-    <button v-if="!isHidden" v-on:click="addDone(todo, $route.params.id)">Done </button>
+    <button v-if="!isHidden && !isHidden2" v-on:click="addDone($route.params.title, $route.params.id, $route.params.category)">Done </button>
     <br> 
     <br>
-    <button v-if="!isHidden" v-on:click="showEdit()">Edit Todo</button>
+    <button v-if="!isHidden && !isHidden2" v-on:click="showEdit()">Edit Todo</button>
+    <br>
+    <br>
+    <button v-if="!isHidden && !isHidden2" v-on:click="showCategory()">Edit category for todo</button>
 
 
     <div v-if="isHidden">
       <input v-model="newTodo" :placeholder="todo" type="text">
       <button v-on:click="editTodo($route.params.id, newTodo)">Submit</button>
+    </div>
+
+    <div v-if="isHidden2">
+      <input v-model="newCategory" :placeholder="category" type="text">
+      <button v-on:click="editCategory($route.params.id, newCategory)">Submit</button>
     </div>
     
   </div>
@@ -28,14 +36,16 @@ export default {
   props: {
       title: String,
       id: String,
-      idx: String
+      idx: String,
+      category: String
     
   },
   data () {
     return {
         isHidden: false,
+        isHidden2: false,
         newTodo: '',
-        todo: this.$route.params.title
+        todo: this.$route.params.title //May not need this
     };
   },
   methods: {
@@ -48,19 +58,27 @@ export default {
         this.isHidden = true;
         
     },
+    showCategory: function(){
+        console.log("In show category");
+        this.isHidden2 = true;
+    },
     editTodo: function(id, newTodo){
         const createdAt = new Date()
         db.collection('todos').doc(id).update({name: newTodo, createdAt: createdAt});
-        console.log("editing");
         this.isHidden = false;
         this.todo = newTodo;
     },
-    addDone: function(name, id){
+    editCategory: function(id, newCat){
+        db.collection('todos').doc(id).update({category: newCat});
+        this.isHidden2 = false;
+
+    },
+    addDone: function(name, id, category){
       //delete from todos and add to done
       console.log("Here is id: " + id);
       const createdAt = new Date()
       db.collection('todos').doc(id).delete();
-      db.collection('done').add({name, createdAt});
+      db.collection('done').add({name, createdAt, category});
       this.$router.replace('/done')
     },
   }

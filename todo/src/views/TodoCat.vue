@@ -11,7 +11,7 @@
 
     <h2> These are the todos</h2>
     <article v-for="(todo, idx) in todosPerCat" :key="idx">
-      <Todo v-bind:msg="todo.name" v-bind:idx="idx" v-bind:id="todo.id"/>
+      <Todo v-bind:msg="todo.name" v-bind:idx="idx" v-bind:id="todo.id" v-bind:category="$route.params.category"/>
     </article>
   </div>
 </template>

@@ -24,7 +24,7 @@
 
     <h2> These are the todos</h2>
     <article v-for="(todo, idx) in todos" :key="idx">
-      <Todo v-bind:msg="todo.name" v-bind:idx="idx" v-bind:id="todo.id"/>
+      <Todo v-bind:msg="todo.name" v-bind:idx="idx" v-bind:id="todo.id" v-bind:category="todo.category"/>
     </article>
 
   </div>
@@ -45,6 +45,7 @@ export default {
       categories: [],
       name: '',
       catName: '',
+      //This is likely causing an error
       idx: 0,
       i: 0
     }
@@ -62,8 +63,9 @@ export default {
       })
     },
     addTodo: function(name){
-      const createdAt = new Date()
-      db.collection('todos').add({name, createdAt});
+      const createdAt = new Date();
+      const category = "";
+      db.collection('todos').add({name, createdAt, category});
     },
     goToDone: function(){
       this.$router.replace('/done')
@@ -74,12 +76,6 @@ export default {
     deleteCategory: function(id, category){
       console.log("Deleting a category" + category);
       db.collection('categories').doc(id).delete();
-
-      //have to delete cateogory in the todos category field
-      // db.collection('todos').where("category", "==", category).update({
-      //   category: firebase.firestore.FieldValue.delete()
-      // });
-
       db.collection('todos').doc(id).update({category: ''});
 
     }

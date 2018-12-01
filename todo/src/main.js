@@ -23,7 +23,8 @@ firebase.auth().onAuthStateChanged(user => {
         el: '#app',
         router,
         render: h => h(App),
-        isHidden: false
+        isHidden: false,
+        isHidden2: false
 
     })
   }

@@ -16,4 +16,4 @@ https://todo-aa404.firebaseapp.com
 ## Challenge Task
 
 * I started the challenge task: Yes
-* I completed the challenge task: No
+* I completed the challenge task: Yes
